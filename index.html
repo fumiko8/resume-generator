@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Генератор резюме</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="form-panel">
+            <h2>Редактор резюме</h2>
+            <input type="text" id="fullName" placeholder="ФИО">
+            <input type="text" id="jobTitle" placeholder="Желаемая должность">
+            <input type="text" id="salary" placeholder="Желаемый уровень дохода в месяц">
+            <input type="email" id="email" placeholder="Email">
+            <input type="tel" id="phone" placeholder="Телефон">
+            
+            <h3>Опыт работы</h3>
+            <div id="workList"></div>
+            <button id="addWork">+ Добавить опыт</button>
+            
+            <h3>Образование</h3>
+            <div id="educationList"></div>
+            <button id="addEducation">+ Добавить образование</button>
+            
+            <h3>Навыки</h3>
+            <div id="skillsContainer">
+                <input type="text" id="skillInput" placeholder="Новый навык">
+                <button id="addSkill">Добавить</button>
+                <div id="skillsTags"></div>
+            </div>
+            
+            <button id="exportPDF">📄 Скачать PDF</button>
+            <button id="resetBtn">🗑️ Сбросить всё</button>
+        </div>
+        <div class="preview-panel">
+            <h2>Предпросмотр резюме</h2>
+            <div id="preview"></div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
