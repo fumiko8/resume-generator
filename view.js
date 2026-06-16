@@ -1,3 +1,5 @@
+//viev - отвечает за отрисовку интерфейса
+//все функции здесь только показывают данные, но не меняют их
 import { escapeHtml } from './utils.js';
 
 // ---- Отрисовка предпросмотра ----
@@ -5,9 +7,10 @@ export function renderPreview(state) {
     const previewDiv = document.getElementById('preview');
     if (!previewDiv) return;
 
+    //достаём все данные из состояния
     const { fullName, jobTitle, salary, email, phone, workExperiences, educationItems, skills } = state;
 
-    // Опыт работы
+    //формируем HTML для опыта работы
     let workHtml = '';
     if (workExperiences.length === 0) {
         workHtml = '<p style="color: #999;">Нет добавленного опыта работы</p>';
@@ -25,7 +28,7 @@ export function renderPreview(state) {
         });
     }
 
-    // Образование
+    //формируем HTML для образования
     let educationHtml = '';
     if (educationItems.length === 0) {
         educationHtml = '<p style="color: #999;">Нет добавленного образования</p>';
@@ -43,7 +46,7 @@ export function renderPreview(state) {
         });
     }
 
-    // Навыки
+    //формируем HTML для навыков
     let skillsHtml = '';
     if (skills.length === 0) {
         skillsHtml = '<p style="color: #999;">Навыки не добавлены</p>';
@@ -55,14 +58,14 @@ export function renderPreview(state) {
         skillsHtml += '</div>';
     }
 
-    // Контакты
+    //формируем HTML для контактов
     const contactHtml = `
         <div style="margin: 15px 0 10px 0; color: #6c757d; display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; font-size: 14px;">
             ${email ? `<div style="display: flex; align-items: center; gap: 6px;">📧 <span>${escapeHtml(email)}</span></div>` : ''}
             ${phone ? `<div style="display: flex; align-items: center; gap: 6px;">📞 <span>${escapeHtml(phone)}</span></div>` : ''}
         </div>
     `;
-
+   //формируем HTML для зарплаты (если указана)
     let salaryHtml = '';
     if (salary) {
         salaryHtml = `
@@ -72,7 +75,7 @@ export function renderPreview(state) {
             </div>
         `;
     }
-
+    //собираем всё вместе
     const resumeHtml = `
         <div id="resumeContent" style="background: white; padding: 30px; max-width: 800px; margin: 0 auto; font-family: 'Segoe UI', Arial, sans-serif;">
             <div style="text-align: center; margin-bottom: 25px;">
@@ -95,11 +98,11 @@ export function renderPreview(state) {
             </div>
         </div>
     `;
-
+    //вставляем готовый HTML в блок предпросмотра
     previewDiv.innerHTML = resumeHtml;
 }
 
-// ---- Отрисовка списка опыта работы ----
+// ---- Отрисовка списка опыта работы (для редактирования) ----
 export function renderWorkList(workExperiences, callbacks) {
     const container = document.getElementById('workList');
     if (!container) return;
@@ -108,8 +111,9 @@ export function renderWorkList(workExperiences, callbacks) {
         container.innerHTML = '<p style="color: #999; margin: 10px 0;">Нет опыта работы. Добавьте первый блок.</p>';
         return;
     }
-
+     //очищаем контейнер
     container.innerHTML = '';
+    //для каждого опыта создаём блок с полями для редактирования
     workExperiences.forEach(exp => {
         const workDiv = document.createElement('div');
         workDiv.style.cssText = 'border: 1px solid #ddd; padding: 12px; margin-bottom: 15px; border-radius: 8px; background: #f9f9f9;';
@@ -157,7 +161,7 @@ export function renderWorkList(workExperiences, callbacks) {
         removeBtn.addEventListener('click', () => {
             callbacks.onRemove(exp.id);
         });
-
+        //собираем блок
         workDiv.appendChild(companyInput);
         workDiv.appendChild(positionInput);
         workDiv.appendChild(periodInput);
@@ -167,7 +171,7 @@ export function renderWorkList(workExperiences, callbacks) {
     });
 }
 
-// ---- Отрисовка списка образования ----
+// ---- Отрисовка списка образования (аналогично опыту) ----
 export function renderEducationList(educationItems, callbacks) {
     const container = document.getElementById('educationList');
     if (!container) return;
@@ -241,6 +245,8 @@ export function renderSkillsTags(skills, callbacks) {
     if (!tagsContainer) return;
 
     tagsContainer.innerHTML = '';
+
+    //для каждого навыка создаём тег с кнопкой удаления
     skills.forEach((skill, index) => {
         const tagSpan = document.createElement('span');
         tagSpan.style.cssText = 'display: inline-block; background: #e9ecef; padding: 5px 12px; border-radius: 20px; margin: 4px;';
@@ -257,7 +263,7 @@ export function renderSkillsTags(skills, callbacks) {
         tagSpan.appendChild(removeBtn);
         tagsContainer.appendChild(tagSpan);
     });
-
+    //если навыков нет - показываем подсказку
     if (skills.length === 0) {
         const emptyHint = document.createElement('span');
         emptyHint.textContent = 'Нет навыков. Добавьте первый.';
