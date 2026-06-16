@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Генератор резюме</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
+    <!-- библиотеки для экспорта PDF  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
     <div class="container">
-        <div class="form-panel">
+        <!-- левая панель: форма ввода -->
+        <div class="form-panel"> 
             <h2>Редактор резюме</h2>
             <input type="text" id="fullName" placeholder="ФИО">
             <input type="text" id="jobTitle" placeholder="Желаемая должность">
@@ -35,11 +38,13 @@
             <button id="exportPDF">📄 Скачать PDF</button>
             <button id="resetBtn">🗑️ Сбросить всё</button>
         </div>
+        <!-- правая панель: предпросмотр -->
         <div class="preview-panel">
             <h2>Предпросмотр резюме</h2>
             <div id="preview"></div>
         </div>
     </div>
-    <script src="app.js"></script>
+    <!-- для подключения JavaScript -->
+    <script type="module" src="js/app.js"></script>
 </body>
 </html>
